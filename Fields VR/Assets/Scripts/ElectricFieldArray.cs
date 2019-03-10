@@ -14,6 +14,8 @@ public class ElectricFieldArray : MonoBehaviour
     private GameObject[,,] vectors = new GameObject[width, length, height];
 
     public float spacing = 1f;
+    public float startHue = 0.675f;
+    public float hueChange = -1.0f;
 
     // Use this for initialization
     void Start()
@@ -46,6 +48,9 @@ public class ElectricFieldArray : MonoBehaviour
                     vectors[w, l, h].transform.rotation = getQuaternion(electricField);
                     float vectorLength = Mathf.Min(electricField.magnitude * 25, spacing);
                     vectors[w, l, h].transform.localScale = new Vector3(vectorLength, 1, 1);
+                    float hue = startHue + (1 - 1 / (electricField.magnitude + 1)) * hueChange;
+                    Color x = Color.HSVToRGB(hue % 1.0f, 1, 1);
+                    vectors[w, l, h].GetComponent<LineRenderer>().endColor = x;
                 }
             }
         }
