@@ -6,7 +6,7 @@ public class ElectricFieldArray : MonoBehaviour
 {
     public GameObject arrowPrefab;
 
-    public GameObject chargedParticle;
+    public GameObject[] chargedParticles;
     
     public const int width = 7;
     public const int length = 7;
@@ -43,8 +43,12 @@ public class ElectricFieldArray : MonoBehaviour
             {
                 for (int l = 0; l < length; l++)
                 {
-                    Vector3 relativePosition = vectors[w, l, h].transform.position - chargedParticle.transform.position;
-                    Vector3 electricField = relativePosition.normalized / relativePosition.sqrMagnitude * chargedParticle.GetComponent<PointCharge>().charge;
+                    Vector3 electricField = Vector3.zero;
+                    foreach (GameObject particle in chargedParticles)
+                    {
+                        Vector3 relativePosition = vectors[w, l, h].transform.position - particle.transform.position;
+                        electricField = electricField + relativePosition.normalized / relativePosition.sqrMagnitude * particle.GetComponent<PointCharge>().charge;
+                    }
                     vectors[w, l, h].transform.rotation = getQuaternion(electricField);
                     float vectorLength = Mathf.Min(electricField.magnitude * 25, spacing);
                     vectors[w, l, h].transform.localScale = new Vector3(vectorLength, 1, 1);

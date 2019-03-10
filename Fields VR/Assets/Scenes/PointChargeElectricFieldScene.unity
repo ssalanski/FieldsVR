@@ -342,7 +342,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 1227452324970396, guid: e9c3b5a57781d9349ba44a5bb84c2c0a,
     type: 2}
-  chargedParticle: {fileID: 567046922}
+  chargedParticles:
+  - {fileID: 567046922}
+  spacing: 1
+  startHue: 0.675
+  hueChange: -1
 --- !u!4 &1005646246
 Transform:
   m_ObjectHideFlags: 0
